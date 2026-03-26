@@ -5,8 +5,7 @@
 
 // Test that all types can be imported from the root
 use zk_verifier::{
-    AccessRequest, BatchAccessAuditEvent, BatchVerificationSummary, ContractError,
-    ZkVerifierContract, ZkVerifierContractClient,
+    AccessRequest, ContractError, ZkVerifierContract, ZkVerifierContractClient,
 };
 
 // Test that helper types are accessible
@@ -15,8 +14,9 @@ use zk_verifier::{MerkleVerifier, ZkAccessHelper};
 // Test that verifier types are accessible
 use zk_verifier::{Bn254Verifier, PoseidonHasher, Proof, ProofValidationError, ZkVerifier};
 
-// Test that vk types are accessible from root
-use zk_verifier::{G1Point, G2Point, VerificationKey};
+// Test that vk types are accessible
+use zk_verifier::vk::{G1Point, G2Point};
+use zk_verifier::VerificationKey;
 
 // Test that audit types are accessible
 use zk_verifier::{AuditRecord, AuditTrail};
@@ -28,7 +28,7 @@ use zk_verifier::AccessRejectedEvent;
 use zk_verifier::verifier::{G1Point as VerifierG1Point, G2Point as VerifierG2Point};
 use zk_verifier::vk::{G1Point as VkG1Point, G2Point as VkG2Point};
 
-use soroban_sdk::{BytesN, Env};
+use soroban_sdk::{testutils::Address as _, BytesN, Env};
 
 #[test]
 fn test_all_exports_accessible() {
@@ -161,10 +161,9 @@ fn test_contract_error_accessible() {
     let _err9 = ContractError::MalformedG2Point;
     let _err10 = ContractError::ZeroedPublicInput;
     let _err11 = ContractError::MalformedProofData;
-    let _err12 = ContractError::ExpiredProof;
-    let _err13 = ContractError::InvalidNonce;
-    let _err14 = ContractError::Paused;
-    let _err15 = ContractError::BatchTooLarge;
+    let _err12 = ContractError::Paused;
+    let _err13 = ContractError::InvalidAuthLevel;
+    let _err14 = ContractError::ProofRequiredForAuthLevel;
 
     assert!(true, "ContractError is accessible with all variants");
 }
